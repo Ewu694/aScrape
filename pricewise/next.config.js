@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
-      serverActions: true,
       serverComponentsExternalPackages: ['mongoose']
     },
     images: {
@@ -9,5 +8,4 @@ const nextConfig = {
     }
   }
   
-  module.exports = nextConfig
-  
+module.exports = nextConfig

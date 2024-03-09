@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { extractPrice } from '../utils';
+import { extractCurrency, extractDescription, extractPrice } from '../utils';
 
 
 export async function scrapeAmazonProduct(url : string){
@@ -17,7 +17,7 @@ export async function scrapeAmazonProduct(url : string){
             username: `${username}-session-${session_id}`,
             password,
         },
-        host: "brd.superproxy.io",
+        host: 'brd.superproxy.io',
         port,
         rejectUnauthorized: false,
     }
@@ -27,25 +27,53 @@ export async function scrapeAmazonProduct(url : string){
         const $ = cheerio.load(response.data);
 
         const title = $('#productTitle').text().trim();//uses cheerio to extract the product title from the response data from website by having it search for an HTML element with the ID "productTitle". This can be changed to check other things
+       
         const currentPrice = extractPrice(
-            $('.priceToPay span.a-price-whole'),
+            $('span[data-a-color=price] span.a-offscreen').first(),
+            $('.priceToPay span.a-price-whole').first(),
             $('.a.size.base.a-color-price'),
             $('.a-button-selected .a-color-base'),
-          );
+        );
       
         const originalPrice = extractPrice(
-            $('#priceblock_ourprice'),
-            $('.a-price.a-text-price span.a-offscreen'),
-            $('#listPrice'),
-            $('#priceblock_dealprice'),
-            $('.a-size-base.a-color-price')
-          );
+            $('span[data-a-strike=true] span.a-offscreen').first()
+        );
 
-        const outOfStock = $('availability span').text().trim().toLowerCase() === 'currently unavilable'; //checks if something says it is "currently unavailable" in the availbility span and returns this value as a boolean using the ""==="
+        const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable.';
 
-        const image = $('#imgBlkFront').attr('data-a-dynamic-image') || $('#landingImage').attr('data-a-dynamic-image'); 
+        const images = 
+            $('#imgBlkFront').attr('data-a-dynamic-image') || 
+            $('#landingImage').attr('data-a-dynamic-image') ||
+            '{}'   
+      
+        const imageUrls = Object.keys(JSON.parse(images));
+      
+        const currency = extractCurrency($('.a-price-symbol'))
+        const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
+      
+        const description = extractDescription($)
+      
+        // Construct data object with scraped information
+        const data = {
+            url,
+            currency: currency || '$',
+            image: imageUrls[0],
+            title,
+            currentPrice: currentPrice || originalPrice,
+            originalPrice: originalPrice || currentPrice,
+            priceHistory: [],
+            discountRate: discountRate,
+            category: 'category',
+            reviewsCount:100,
+            stars: 4.5,
+            isOutOfStock: outOfStock,
+            description,
+            lowestPrice: currentPrice || originalPrice,
+            highestPrice: originalPrice || currentPrice,
+            averagePrice: currentPrice || originalPrice,
+        }
+        return data;
 
-        console.log({title, currentPrice, originalPrice, outOfStock, image}) //prints out the title of the product (testing)
     } catch (error : any) {
         throw new Error(`Failed to scrape product: ${error.message}`)
     }
