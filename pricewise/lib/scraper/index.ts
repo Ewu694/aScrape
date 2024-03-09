@@ -33,7 +33,7 @@ export async function scrapeAmazonProduct(url : string){
             $('.a-button-selected .a-color-base'),
           );
       
-          const originalPrice = extractPrice(
+        const originalPrice = extractPrice(
             $('#priceblock_ourprice'),
             $('.a-price.a-text-price span.a-offscreen'),
             $('#listPrice'),
@@ -41,7 +41,11 @@ export async function scrapeAmazonProduct(url : string){
             $('.a-size-base.a-color-price')
           );
 
-        console.log({title, currentPrice, originalPrice}) //prints out the title of the product (testing)
+        const outOfStock = $('availability span').text().trim().toLowerCase() === 'currently unavilable'; //checks if something says it is "currently unavailable" in the availbility span and returns this value as a boolean using the ""==="
+
+        const image = $('#imgBlkFront').attr('data-a-dynamic-image') || $('#landingImage').attr('data-a-dynamic-image'); 
+
+        console.log({title, currentPrice, originalPrice, outOfStock, image}) //prints out the title of the product (testing)
     } catch (error : any) {
         throw new Error(`Failed to scrape product: ${error.message}`)
     }
