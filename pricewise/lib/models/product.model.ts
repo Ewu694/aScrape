@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
     url: {type : String, required: true, unique: true},//sets conditions to must be a string URL that is unique 
@@ -26,6 +26,6 @@ const productSchema = new mongoose.Schema({
     ], default: [], 
 }, {timestamps: true});
 
-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 
 export default Product;

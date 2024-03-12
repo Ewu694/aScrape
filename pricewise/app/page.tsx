@@ -1,8 +1,9 @@
-import React from 'react'
+import React from "react"
 import Image from "next/image"
-import Searchbar from '@/components/Searchbar'
-import HeroCarousel from '@/components/HeroCarousel'
-import { getAllProducts } from '@/lib/actions'
+import Searchbar from "@/components/Searchbar"
+import HeroCarousel from "@/components/HeroCarousel"
+import { getAllProducts } from "@/lib/actions"
+import ProductCard from "@/components/ProductCard"
 
 const Home = async () => {
   const allProducts = await getAllProducts();//next.js allows for users to just use async in the line above without worrying about use effects and states
@@ -38,7 +39,7 @@ const Home = async () => {
           <div className="flex flex-wrap gap-x-8 gap-y-16">
             {allProducts?.map
             ((product) => (
-              <div>{product.title}</div>
+              <ProductCard key = {product._id} product = {product} />
             ))}
           </div>
       </section>

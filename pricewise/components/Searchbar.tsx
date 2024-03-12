@@ -1,7 +1,7 @@
 "use client"
 
-import { scrapeAndStoreProduct } from '@/lib/actions';
-import { FormEvent, useState } from 'react'
+import { scrapeAndStoreProduct } from "@/lib/actions";
+import { FormEvent, useState } from "react"
 
 const isValidAmazonProductURL = (url:string) => { //will be changed later to suit whatever we are looking for 
     try {
@@ -9,7 +9,7 @@ const isValidAmazonProductURL = (url:string) => { //will be changed later to sui
         const hostName = parsedURL.hostname;
 
         //check if hostname contains amazon.com or amazon.country code
-        if(hostName.includes("amazon.") || hostName.endsWith('amazon'))//if the hostname of a given link includes amazon, then return true to show that its a valid amazon link
+        if(hostName.includes("amazon.") || hostName.endsWith("amazon"))//if the hostname of a given link includes amazon, then return true to show that its a valid amazon link
             return true;
 
     } catch (error) { //else return false
@@ -19,14 +19,14 @@ const isValidAmazonProductURL = (url:string) => { //will be changed later to sui
   }
 
 const Searchbar = () => {
-    const [searchPrompt, setSearchPrompt] = useState('');
+    const [searchPrompt, setSearchPrompt] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
 const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault() //default behavior of a webpage after a search is to just reload the page, but this will prevent that 
     const isValidLink = isValidAmazonProductURL(searchPrompt);//output of whatever check is implemented in isValidAmazonProduct
     if(!isValidLink)
-        return alert('Please Provide a Valid Amazon Link')
+        return alert("Please Provide a Valid Amazon Link")
     
     try {
         setIsLoading(true);//if something goes wrong and website is loading too long, set to true
@@ -56,9 +56,9 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         <button 
             type="submit" 
             className="searchbar-btn" //searchbar button
-            disabled={searchPrompt === ""} //if search bar is empty, don't allow search button to be used
+            disabled={searchPrompt === ""} //if search bar is empty, don"t allow search button to be used
         >
-                {isLoading ? 'Searching...' : 'Search'/* while loading, put search button in searching, otherwise, it should be in search*/}
+                {isLoading ? "Searching..." : "Search"/* while loading, put search button in searching, otherwise, it should be in search*/}
         </button>
     </form>
   )

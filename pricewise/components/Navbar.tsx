@@ -1,11 +1,11 @@
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import React from "react"
+import Link from "next/link"
+import Image from "next/image"
 
 const navIcons = [//allows for dynamic imaging to not waste more program code on parsing 3 different images
-    {src: '/assets/icons/search.svg', alt: 'search'},
-    {src: '/assets/icons/black-heart.svg', alt: 'heart'},
-    {src: '/assets/icons/user.svg', alt: 'user'},
+    {src: "/assets/icons/search.svg", alt: "search"},
+    {src: "/assets/icons/black-heart.svg", alt: "heart"},
+    {src: "/assets/icons/user.svg", alt: "user"},
 ]
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
                     alt="logo"
                 />
                 <p className="nav-logo">
-                    Price<span className='text-primary'> Wise</span>
+                    Price<span className="text-primary"> Wise</span>
                 </p>
             </Link>
             <div className="flex items-center gap-5">
