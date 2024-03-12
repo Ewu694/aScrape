@@ -2,8 +2,11 @@ import React from 'react'
 import Image from "next/image"
 import Searchbar from '@/components/Searchbar'
 import HeroCarousel from '@/components/HeroCarousel'
+import { getAllProducts } from '@/lib/actions'
 
-const Home = () => {
+const Home = async () => {
+  const allProducts = await getAllProducts();//next.js allows for users to just use async in the line above without worrying about use effects and states
+
   return (
     <>
       <section className="px-6 md:px-20 py-24"> 
@@ -33,9 +36,9 @@ const Home = () => {
       <section className="trending-section">
           <h2 className="section-text">Trending</h2>
           <div className="flex flex-wrap gap-x-8 gap-y-16">
-            {["Apple Iphone 15", "Book", "Sneakers"].map
+            {allProducts?.map
             ((product) => (
-              <div>{product}</div>
+              <div>{product.title}</div>
             ))}
           </div>
       </section>
