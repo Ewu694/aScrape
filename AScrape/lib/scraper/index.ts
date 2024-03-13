@@ -1,3 +1,5 @@
+"use server"
+
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { extractCurrency, extractDescription, extractPrice } from "../utils";
@@ -54,7 +56,7 @@ export async function scrapeAmazonProduct(url : string){
         const description = extractDescription($)
       
         // Construct data object with scraped information
-        const data = {
+        const data = { //remmeber to install mongoose, mongodb and axios cheero before running for scraping to run properly
             url,
             currency: currency || "$",
             image: imageUrls[0],
@@ -64,7 +66,7 @@ export async function scrapeAmazonProduct(url : string){
             priceHistory: [],
             discountRate: Number(discountRate),
             category: "category",
-            reviewsCount:100,
+            reviewsCount: "To Be Updated",
             stars: 4.5,
             isOutOfStock: outOfStock,
             description,

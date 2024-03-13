@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {//used to change title and description of project
-  title: "Pricewise", //title of project
+  title: "AScrape", //title of project
   description: "Track product prices effortlessly and save money on your online shopping", //description of project
 };
 

@@ -3,7 +3,7 @@
 import { EmailContent, EmailProductInfo, NotificationType } from '@/types';
 import nodemailer from 'nodemailer';
 
-const Notification = {
+const Notification = {//diferent types of email that can be sent
   WELCOME: 'WELCOME',
   CHANGE_OF_STOCK: 'CHANGE_OF_STOCK',
   LOWEST_PRICE: 'LOWEST_PRICE',
@@ -11,8 +11,8 @@ const Notification = {
 }
 
 export async function generateEmailBody(
-  product: EmailProductInfo,
-  type: NotificationType
+  product: EmailProductInfo,//used for product info
+  type: NotificationType//used to for email to know which type of notification to send
   ) {
   const THRESHOLD_PERCENTAGE = 40;
   // Shorten the product title
@@ -29,7 +29,7 @@ export async function generateEmailBody(
       subject = `Welcome to Price Tracking for ${shortenedTitle}`;
       body = `
         <div>
-          <h2>Welcome to PriceWise 🚀</h2>
+          <h2>Welcome to aScrape 🚀</h2>
           <p>You are now tracking ${product.title}.</p>
           <p>Here's an example of how you'll receive updates:</p>
           <div style="border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8;">
@@ -91,15 +91,17 @@ const transporter = nodemailer.createTransport({
   maxConnections: 1
 })
 
-export const sendEmail = async (emailContent: EmailContent, sentTo: string[]) => {
-    const mailOptions = {
+export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
+  const mailOptions = {
     from: 'ericwu694@outlook.com',
-    to: sentTo,
+    to: sendTo,
     html: emailContent.body,
     subject: emailContent.subject,
-    };
+  }
+
+  transporter.sendMail(mailOptions, (error: any, info: any) => {
+    if(error) return console.log(error);
     
-    await transporter.sendMail(mailOptions);
-    
-    return {};
-    };
+    console.log('Email sent: ', info);
+  })
+}

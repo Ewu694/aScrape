@@ -29,10 +29,10 @@ const Modal = ({ productId }: Props) => {
 
   const closeModal = () => setIsOpen(false);
 
-  return (//uses "@headlessui/react"
+  return (
     <>
       <button type="button" className="btn" onClick={openModal}>
-        Track   
+        Track
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -67,6 +67,14 @@ const Modal = ({ productId }: Props) => {
               <div className="dialog-content">
                 <div className="flex flex-col">
                   <div className="flex justify-between">
+                    <div className="p-3 border border-gray-200 rounded-10">
+                      <Image 
+                        src="/assets/icons/logo.svg"
+                        alt="logo"
+                        width={28}
+                        height={28}
+                      />
+                    </div>
 
                     <Image 
                       src="/assets/icons/x-close.svg"

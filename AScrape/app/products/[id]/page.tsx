@@ -102,7 +102,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                     height={16}
                   />
                   <p className="text-sm text-primary-orange font-semibold">
-                    {product.stars || "25"}
+                    {product.stars || "/5"}
                   </p>
                 </div>
 
@@ -120,7 +120,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
               </div>
 
               <p className="text-sm text-black opacity-50"> 
-                <span className="text-primary-green font-semibold">93% </span> of 
+                <span className="text-primary-green font-semibold"> _% </span> of 
                 buyers have recommeded this.
               </p>
             </div>
@@ -155,34 +155,27 @@ const ProductDetails = async ({ params: { id } }: Props) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-16 border-2 border-black-500">
+      <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-5">
-          <h3 className="text-2xl text-secondary font-semibold">
-            Product Description
-          </h3>
-
-          <div className="flex flex-col gap-4">
-            {product?.description?.split("\n")}
-          </div>
         </div>
 
-        <button className="btn w-fit mx-auto flex items-center justify-center gap-3 min-w-[200px]">
-          <Image 
-            src="/assets/icons/bag.svg"
-            alt="check"
-            width={22}
-            height={22}
-          />
-
+        <button className="btn w-full mx-auto flex items-center justify-center gap-3 min-w-[200px]">
           <Link href="/" className="text-base text-white">
             Buy Now
           </Link>
+
+          <Image 
+            src="/assets/icons/bag.svg"
+            alt="check"
+            width={30}
+            height={30}
+          />
         </button>
       </div>
 
       {similarProducts && similarProducts?.length > 0 && (
         <div className="py-14 flex flex-col gap-100 w-full">
-          <p className="section-text">Similar Products</p>
+          <p className="section-text">Items You've Looked At</p>
 
           <div className="flex flex-wrap gap-8 mt-7 w-full">
             {similarProducts.map((product) => (

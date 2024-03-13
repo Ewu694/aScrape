@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <header className = "w-full"> 
         <nav className = "nav">
-            <Link href="/" className = "flex items-center-gap-1">
+            <Link href="/" className = "flex items-center-gap-">
                 <Image
                     src="/assets/icons/logo.svg"
                     width={27}
@@ -20,7 +20,7 @@ const Navbar = () => {
                     alt="logo"
                 />
                 <p className="nav-logo">
-                    Price<span className="text-primary"> Wise</span>
+                     Scrape
                 </p>
             </Link>
             <div className="flex items-center gap-5">
