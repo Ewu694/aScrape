@@ -3,7 +3,7 @@ Developed using Next.js and Bright Data's webunlocker, this e-commerce product s
 All of the Back-End work has been completed for this project as the scraping and mailing functions have been implemented and tested to work <br>
 Most of the Front-End work are done, however there are still many ways to make this website more interactive and things to be fixed, until then I will keep working on this project until it is fully done and deployed! 
 
-## Technologies Used
+## Technologies Used:
 
 - Next.js
 - React.js
